@@ -8,123 +8,124 @@
 import SwiftUI
 import StoreKit
 
-struct ContentView: View {
+@Observable
+class StoreKitManager {
     
-    @State var showCancellation = false
-    @State var showPolicies = false
-//    @State var showRedeemCode = false
-    @State var showRestorePurchases = false
-    @State var showSignInButton = false
+    var showCancellation = true
+    var showRestorePurchases = false
+    var showSignInButton = false
+    var showRedeemCode = false
+    var showPolicies = false
     
-    @State var primarySubscriptionStoreButtonLabel: SubscriptionStoreButtonLabel = .automatic
-    @State var secondarySubscriptionStoreButtonLabel: SubscriptionStoreButtonLabel = .automatic
+    var primarySubscriptionStoreButtonLabel: SubscriptionStoreButtonLabel = .automatic
+    var secondarySubscriptionStoreButtonLabel: SubscriptionStoreButtonLabel = .automatic
     
-//    @State var subscriptionStoreControlBackground: SubscriptionStoreControlBackground = .automatic
-    @State var subscriptionStoreControlBackground: BackgroundStyle = .background
+    var tintColor: Color = .green
+    var foregroundColor: Color = .primary
     
-//    @State var subscriptionStoreControlStyle: SubscriptionStoreControlStyle = .automatic
-    @State private var selectedStyle: StoreControlStyleOption = .buttons
-    
-    enum StoreControlStyleOption: String, CaseIterable, Identifiable {
-        case buttons
-        case picker
-        
-        var id: String { rawValue }
+}
 
-        var style: any SubscriptionStoreControlStyle {
-            switch self {
-            case .buttons:
-                ButtonsSubscriptionStoreControlStyle()
-            case .picker:
-                PickerSubscriptionStoreControlStyle()
+struct BasicSubscriptionStoreView: View {
+    var body: some View {
+        SubscriptionStoreView(groupID: "80040CF5")
+    }
+}
+
+struct GroupedSubscriptionStoreView: View {
+    
+    @Binding var storeKitManager: StoreKitManager
+    
+    var body: some View {
+        SubscriptionStoreView(groupID: "80040CF5") {
+            SubscriptionOptionGroupSet { product in
+                StreamingPassLevel(product)
+            } label: { product in
+                Text(product.localizedTitle)
+            } marketingContent: { product in
+                product.marketingContent
             }
+        }
+        .subscriptionStoreControlStyle(.compactPicker, placement: .buttonsInBottomBar)
+        .tint(storeKitManager.tintColor)
+        .foregroundStyle(storeKitManager.foregroundColor)
+        
+        // Buttons
+        .storeButton(storeKitManager.showCancellation ? .visible : .hidden, for: .cancellation)
+        .storeButton(storeKitManager.showPolicies ? .visible : .hidden, for: .policies)
+        .storeButton(storeKitManager.showRedeemCode ? .visible : .hidden, for: .redeemCode)
+        .storeButton(storeKitManager.showRestorePurchases ? .visible : .hidden, for: .restorePurchases)
+        .storeButton(storeKitManager.showSignInButton ? .visible : .hidden, for: .signIn)
+        
+        // Subscription Store Button Labels
+        .subscriptionStoreButtonLabel(storeKitManager.primarySubscriptionStoreButtonLabel)
+        .subscriptionStoreButtonLabel(storeKitManager.secondarySubscriptionStoreButtonLabel)
+    }
+}
+
+struct EditorView: View {
+
+    @Binding var storeKitManager: StoreKitManager
+    @Environment(\.dismiss) var dismiss
+    
+    var body: some View {
+        @Bindable var storeKitManager = storeKitManager
+        NavigationView {
+            Form {
+                buttonsSection
+                subscriptionStoreButtonLabelSection
+                colorSection
+            }
+            .toolbar {
+                Button {
+                    dismiss()
+                } label: {
+                    Text("Close")
+                }
+            }
+            .navigationTitle("Editor")
         }
     }
     
-    var body: some View {
-        NavigationStack {
-//            SubscriptionStoreView(groupID: "80040CF5", visibleRelationships: .all) {
-//                Color.blue
-//            }
-            SubscriptionStoreView(groupID: "80040CF5")
-                .storeButton(showCancellation ? .visible : .hidden, for: .cancellation)
-                .storeButton(showPolicies ? .visible : .hidden, for: .policies)
-//                .storeButton(showRedeemCode ? .visible : .hidden, for: .redeemCode)
-                .storeButton(showRestorePurchases ? .visible : .hidden, for: .restorePurchases)
-                .storeButton(showSignInButton ? .visible : .hidden, for: .signIn)
+    var buttonsSection: some View {
+        Section {
+            Toggle(isOn: $storeKitManager.showCancellation) {
+                Text("Cancellation")
+            }
             
-                .subscriptionStoreControlBackground(.gradientMaterial)
+            Toggle(isOn: $storeKitManager.showPolicies) {
+                Text("Policies")
+            }
             
-//                .subscriptionStoreControlStyle(selectedStyle.style())
-//                .subscriptionStoreControlStyle(selectedStyle.style)
+            Toggle(isOn: $storeKitManager.showRedeemCode) {
+                Text("Redeem Code")
+            }
             
-                .subscriptionStoreControlStyle(.buttons)
-                
-                .subscriptionStoreButtonLabel(primarySubscriptionStoreButtonLabel)
-                .subscriptionStoreButtonLabel(secondarySubscriptionStoreButtonLabel)
+            Toggle(isOn: $storeKitManager.showRestorePurchases) {
+                Text("Restore Purchases")
+            }
             
-            
-            
-                .inspector(isPresented: .constant(true)) {
-                    VStack {
-                        HStack {
-                            Button {
-                                
-                            } label: {
-                                Text("1")
-                            }
-                            Button {
-                                
-                            } label: {
-                                Text("2")
-                            }
-                            Button {
-                                
-                            } label: {
-                                Text("3")
-                            }
-                        }
-                        Form {
-                            Section {
-                                Toggle(isOn: $showCancellation) {
-                                    Text("Cancellation")
-                                }
-                                Toggle(isOn: $showPolicies) {
-                                    Text("Policies")
-                                }
-                                //                            Toggle(isOn: $showRedeemCode) {
-                                //                                Text("Redeem Code")
-                                //                            }
-                                Toggle(isOn: $showRestorePurchases) {
-                                    Text("Restore Purchases")
-                                }
-                                Toggle(isOn: $showSignInButton) {
-                                    Text("Sign In")
-                                }
-                            } header: {
-                                Text("Store Buttons")
-                            }
-                            
-                            subscriptionStoreButtonLabelSection
-                            
-//                            Section {
-//                                Picker(selection: $subscriptionStoreControlBackground) {
-////                                    ForEach(SubscriptionStoreControlBackground.allCases, id: \.self) { type in
-////                                        Text("TESt")
-////                                    }
-//                                } label: {
-//                                    Text("Secondary Label")
-//                                }
-//                            }
-                        }
-                    }
-                }
+            Toggle(isOn: $storeKitManager.showSignInButton) {
+                Text("Sign In")
+            }
+        } header: {
+            Text("Store Buttons")
+        }
+    }
+    
+    var colorSection: some View {
+        @Bindable var storeKitManager = storeKitManager
+        return Section {
+            ColorPicker("Tint Color", selection: $storeKitManager.tintColor, supportsOpacity: true)
+            ColorPicker("Foreground Color", selection: $storeKitManager.foregroundColor, supportsOpacity: false)
+        } header: {
+            Text("Subscription Store Button Labels")
         }
     }
     
     var subscriptionStoreButtonLabelSection: some View {
-        Section {
-            Picker(selection: $primarySubscriptionStoreButtonLabel) {
+        @Bindable var storeKitManager = storeKitManager
+        return Section {
+            Picker(selection: $storeKitManager.primarySubscriptionStoreButtonLabel) {
                 ForEach(SubscriptionStoreButtonLabel.allCases, id: \.self) { type in
                     Text(nameFor(label: type))
                 }
@@ -132,7 +133,7 @@ struct ContentView: View {
                 Text("Primary Label")
             }
             
-            Picker(selection: $secondarySubscriptionStoreButtonLabel) {
+            Picker(selection: $storeKitManager.secondarySubscriptionStoreButtonLabel) {
                 ForEach(SubscriptionStoreButtonLabel.allCases, id: \.self) { type in
                     Text(nameFor(label: type))
                 }
@@ -162,6 +163,114 @@ struct ContentView: View {
             "Unknown"
         }
     }
+}
+
+struct ContentView: View {
+    
+    @State var storeKitManager = StoreKitManager()
+    @State var showEditor = false
+    
+    var body: some View {
+        ZStack(alignment: .topLeading) {
+            GroupedSubscriptionStoreView(storeKitManager: $storeKitManager)
+            
+            Button {
+                showEditor.toggle()
+            } label: {
+                Image(systemName: "star.fill")
+                    .foregroundStyle(.white)
+                    .font(.title2)
+            }
+            .padding()
+        }
+        .sheet(isPresented: $showEditor) {
+            EditorView(storeKitManager: $storeKitManager)
+        }
+        //
+        //        NavigationStack {
+        ////            SubscriptionStoreView(groupID: "80040CF5", visibleRelationships: .all) {
+        ////                Color.blue
+        ////            }
+        //            GroupedSubscriptionStoreView()
+        ////            SubscriptionStoreView(groupID: "80040CF5")
+        //                .storeButton(storeKitManager.showCancellation ? .visible : .hidden, for: .cancellation)
+        //                .storeButton(storeKitManager.showPolicies ? .visible : .hidden, for: .policies)
+        ////                .storeButton(showRedeemCode ? .visible : .hidden, for: .redeemCode)
+        //                .storeButton(storeKitManager.showRestorePurchases ? .visible : .hidden, for: .restorePurchases)
+        //                .storeButton(storeKitManager.showSignInButton ? .visible : .hidden, for: .signIn)
+        //
+        //                .subscriptionStoreControlBackground(.gradientMaterial)
+        //
+        ////                .subscriptionStoreControlStyle(selectedStyle.style())
+        ////                .subscriptionStoreControlStyle(selectedStyle.style)
+        //
+        //                .subscriptionStoreControlStyle(.buttons)
+        //
+        //                .subscriptionStoreButtonLabel(storeKitManager.primarySubscriptionStoreButtonLabel)
+        //                .subscriptionStoreButtonLabel(storeKitManager.secondarySubscriptionStoreButtonLabel)
+        //
+        //
+        //
+        //                .inspector(isPresented: .constant(true)) {
+        //                    VStack {
+        //                        HStack {
+        //                            Button {
+        //
+        //                            } label: {
+        //                                Text("1")
+        //                            }
+        //                            Button {
+        //
+        //                            } label: {
+        //                                Text("2")
+        //                            }
+        //                            Button {
+        //
+        //                            } label: {
+        //                                Text("3")
+        //                            }
+        //                        }
+        //                        Form {
+        //                            Section {
+        //                                Toggle(isOn: $storeKitManager.showCancellation) {
+        //                                    Text("Cancellation")
+        //                                }
+        //                                Toggle(isOn: $storeKitManager.showPolicies) {
+        //                                    Text("Policies")
+        //                                }
+        //                                //                            Toggle(isOn: $showRedeemCode) {
+        //                                //                                Text("Redeem Code")
+        //                                //                            }
+        //                                Toggle(isOn: $storeKitManager.showRestorePurchases) {
+        //                                    Text("Restore Purchases")
+        //                                }
+        //                                Toggle(isOn: $storeKitManager.showSignInButton) {
+        //                                    Text("Sign In")
+        //                                }
+        //                            } header: {
+        //                                Text("Store Buttons")
+        //                            }
+        //
+        //                            subscriptionStoreButtonLabelSection
+        //
+        ////                            Section {
+        ////                                Picker(selection: $subscriptionStoreControlBackground) {
+        //////                                    ForEach(SubscriptionStoreControlBackground.allCases, id: \.self) { type in
+        //////                                        Text("TESt")
+        //////                                    }
+        ////                                } label: {
+        ////                                    Text("Secondary Label")
+        ////                                }
+        ////                            }
+        //                        }
+        //                    }
+        //                }
+        //        }
+    }
+    
+    
+    
+  
     
     var backgroundStyles: [BackgroundStyle] {
         return [.background]
@@ -170,13 +279,53 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-//        .frame(height: 800)
-//        .previewDevice("iPhone 15 Pro")
+    //        .frame(height: 800)
+    //        .previewDevice("iPhone 15 Pro")
 }
 
 
 extension SubscriptionStoreButtonLabel {
     static var allCases: [SubscriptionStoreButtonLabel] {
         [.action, .automatic, .displayName, .multiline, .price, .singleLine]
+    }
+}
+
+enum StreamingPassLevel: Hashable {
+    case basic
+    case premium
+    
+    init(_ product: Product) {
+        if product.id.contains("basic") {
+            self = .basic
+        } else {
+            self = .premium
+        }
+    }
+    
+    var localizedTitle: String {
+        switch self {
+        case .basic:
+            "Basic"
+        case .premium:
+            "Premium"
+        }
+    }
+    
+    @ViewBuilder
+    var marketingContent: some View {
+        ZStack {
+            switch self {
+            case .basic:
+                Color.blue
+            case .premium:
+                Color.orange
+            }
+            
+            Text(localizedTitle)
+                .font(.largeTitle)
+                .bold()
+                .foregroundStyle(.white)
+        }
+        .edgesIgnoringSafeArea(.top)
     }
 }

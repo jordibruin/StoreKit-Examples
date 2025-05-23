@@ -89,13 +89,41 @@
           "localizations" : [
             {
               "description" : "Unlock all features",
-              "displayName" : "Monthly Subscription",
+              "displayName" : "Basic Monthly",
               "locale" : "en_US"
             }
           ],
-          "productID" : "storekit.example.monthly",
+          "productID" : "storekit.example.monthly.basic",
           "recurringSubscriptionPeriod" : "P1M",
-          "referenceName" : "Monthly",
+          "referenceName" : "Monthly Basic",
+          "subscriptionGroupID" : "80040CF5",
+          "type" : "RecurringSubscription",
+          "winbackOffers" : [
+
+          ]
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "0.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "656CB466",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Unlock all Premium features",
+              "displayName" : "Premium Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "storekit.example.monthly.premium",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly Premium",
           "subscriptionGroupID" : "80040CF5",
           "type" : "RecurringSubscription",
           "winbackOffers" : [

@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct StoreKit_ExamplesApp: App {
+    
+//    @State var storeKitManager = StoreKitManager()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+//                .environment(storeKitManager)
         }
     }
 }

@@ -19,8 +19,33 @@ struct ContentView: View {
     @State var primarySubscriptionStoreButtonLabel: SubscriptionStoreButtonLabel = .automatic
     @State var secondarySubscriptionStoreButtonLabel: SubscriptionStoreButtonLabel = .automatic
     
+//    @State var subscriptionStoreControlBackground: SubscriptionStoreControlBackground = .automatic
+    @State var subscriptionStoreControlBackground: BackgroundStyle = .background
+    
+//    @State var subscriptionStoreControlStyle: SubscriptionStoreControlStyle = .automatic
+    @State private var selectedStyle: StoreControlStyleOption = .buttons
+    
+    enum StoreControlStyleOption: String, CaseIterable, Identifiable {
+        case buttons
+        case picker
+        
+        var id: String { rawValue }
+
+        var style: any SubscriptionStoreControlStyle {
+            switch self {
+            case .buttons:
+                ButtonsSubscriptionStoreControlStyle()
+            case .picker:
+                PickerSubscriptionStoreControlStyle()
+            }
+        }
+    }
+    
     var body: some View {
         NavigationStack {
+//            SubscriptionStoreView(groupID: "80040CF5", visibleRelationships: .all) {
+//                Color.blue
+//            }
             SubscriptionStoreView(groupID: "80040CF5")
                 .storeButton(showCancellation ? .visible : .hidden, for: .cancellation)
                 .storeButton(showPolicies ? .visible : .hidden, for: .policies)
@@ -28,9 +53,17 @@ struct ContentView: View {
                 .storeButton(showRestorePurchases ? .visible : .hidden, for: .restorePurchases)
                 .storeButton(showSignInButton ? .visible : .hidden, for: .signIn)
             
-
+                .subscriptionStoreControlBackground(.gradientMaterial)
+            
+//                .subscriptionStoreControlStyle(selectedStyle.style())
+//                .subscriptionStoreControlStyle(selectedStyle.style)
+            
+                .subscriptionStoreControlStyle(.buttons)
+                
                 .subscriptionStoreButtonLabel(primarySubscriptionStoreButtonLabel)
                 .subscriptionStoreButtonLabel(secondarySubscriptionStoreButtonLabel)
+            
+            
             
                 .inspector(isPresented: .constant(true)) {
                     VStack {
@@ -72,26 +105,42 @@ struct ContentView: View {
                                 Text("Store Buttons")
                             }
                             
-                            Section {
-                                Picker(selection: $primarySubscriptionStoreButtonLabel) {
-                                    ForEach(SubscriptionStoreButtonLabel.allCases, id: \.self) { type in
-                                        Text(nameFor(label: type))
-                                    }
-                                } label: {
-                                    Text("Primary Label")
-                                }
-                                
-                                Picker(selection: $secondarySubscriptionStoreButtonLabel) {
-                                    ForEach(SubscriptionStoreButtonLabel.allCases, id: \.self) { type in
-                                        Text(nameFor(label: type))
-                                    }
-                                } label: {
-                                    Text("Secondary Label")
-                                }
-                            }
+                            subscriptionStoreButtonLabelSection
+                            
+//                            Section {
+//                                Picker(selection: $subscriptionStoreControlBackground) {
+////                                    ForEach(SubscriptionStoreControlBackground.allCases, id: \.self) { type in
+////                                        Text("TESt")
+////                                    }
+//                                } label: {
+//                                    Text("Secondary Label")
+//                                }
+//                            }
                         }
                     }
                 }
+        }
+    }
+    
+    var subscriptionStoreButtonLabelSection: some View {
+        Section {
+            Picker(selection: $primarySubscriptionStoreButtonLabel) {
+                ForEach(SubscriptionStoreButtonLabel.allCases, id: \.self) { type in
+                    Text(nameFor(label: type))
+                }
+            } label: {
+                Text("Primary Label")
+            }
+            
+            Picker(selection: $secondarySubscriptionStoreButtonLabel) {
+                ForEach(SubscriptionStoreButtonLabel.allCases, id: \.self) { type in
+                    Text(nameFor(label: type))
+                }
+            } label: {
+                Text("Secondary Label")
+            }
+        } header: {
+            Text("Subscription Store Button Labels")
         }
     }
     
@@ -113,10 +162,16 @@ struct ContentView: View {
             "Unknown"
         }
     }
+    
+    var backgroundStyles: [BackgroundStyle] {
+        return [.background]
+    }
 }
 
 #Preview {
     ContentView()
+//        .frame(height: 800)
+//        .previewDevice("iPhone 15 Pro")
 }
 
 

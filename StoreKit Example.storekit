@@ -88,8 +88,8 @@
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "",
-              "displayName" : "",
+              "description" : "Unlock all features",
+              "displayName" : "Monthly Subscription",
               "locale" : "en_US"
             }
           ],

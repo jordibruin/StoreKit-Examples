@@ -1,3 +1,24 @@
+# StoreKit Store View Examples
+This repo aims to provide sample code for the StoreKit Store and Subscription Store views. You can use them as inspiration for your own paywalls. The goal is to make each option in the StoreView customisable so you can see the effects they have. The repo also aims to recreate common marketing content based on 'proven to be effective' paywalls. 
+
+<img width="1511" alt="image" src="https://github.com/user-attachments/assets/18a4a4d6-0543-45b3-8499-4dda391ef55e">
+
+## Benefits of using StoreViews
+- [ ] Easy to implement
+- [ ] Localized
+- [ ] Accessible
+- [ ] No dependencies
+
+## Todo
+- [ ] Add support for all things that can be customised
+- [ ] iOS support
+- [ ] iPadOS support
+- [ ] macOS support
+- [ ] visionOS support
+- [ ] Figure out a way to make SubscriptionStoreControlStyle customisable
+
+Long unordered list of todos:
+
 [Store Buttons & Labels]
 
 - [ ] Allow toggling visibility of Store Buttons (e.g., cancellation, restore, redeem code, policies)

@@ -15,22 +15,20 @@ struct EditorView: View {
     
     var body: some View {
         @Bindable var storeKitManager = storeKitManager
-        NavigationView {
-            Form {
-                storeTypeSection
-                buttonsSection
-                subscriptionStoreButtonLabelSection
-                colorSection
-            }
-            .toolbar {
-                Button {
-                    dismiss()
-                } label: {
-                    Text("Close")
-                }
-            }
-            .navigationTitle("Editor")
+        Form {
+            storeTypeSection
+            buttonsSection
+            subscriptionStoreButtonLabelSection
+            colorSection
         }
+        .toolbar {
+            Button {
+                dismiss()
+            } label: {
+                Text("Close")
+            }
+        }
+        .navigationTitle("Editor")
     }
     
     var storeTypeSection: some View {
@@ -38,7 +36,7 @@ struct EditorView: View {
         return Section {
             Picker(selection: $storeKitManager.subscriptionStoreViewOption) {
                 ForEach(SubscriptionStoreViewOption.allCases) { option in
-                    Text(option.rawValue)
+                    Text(option.rawValue).tag(option)
                 }
             } label: {
                 Text("Store Type")

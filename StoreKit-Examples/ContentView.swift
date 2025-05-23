@@ -14,22 +14,36 @@ struct ContentView: View {
     @State var showEditor = false
     
     var body: some View {
-        ZStack(alignment: .topLeading) {
-            storeKitManager.subscriptionStoreViewOption
-            
-            Button {
-                showEditor.toggle()
-            } label: {
-                Image(systemName: "ellipsis.circle.fill")
-                    .foregroundStyle(.white)
-                    .font(.title)
-                    .background(.thinMaterial)
+        Group {
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                
+                NavigationSplitView(sidebar: {
+                    EditorView()
+                }, detail: {
+                    storeKitManager.subscriptionStoreViewOption
+                })
+                .navigationSplitViewStyle(.balanced)
+            } else {
+                ZStack(alignment: .topLeading) {
+                    storeKitManager.subscriptionStoreViewOption
+                    
+                    Button {
+                        showEditor.toggle()
+                    } label: {
+                        Image(systemName: "ellipsis.circle.fill")
+                            .foregroundStyle(.white)
+                            .font(.title)
+                            .background(.thinMaterial)
+                    }
+                    .padding()
+                }
             }
-            .padding()
         }
         .sheet(isPresented: $showEditor) {
-            EditorView()
-                .environment(storeKitManager)
+            NavigationView {
+                EditorView()
+                    .environment(storeKitManager)
+            }
         }
         .environment(storeKitManager)
     }

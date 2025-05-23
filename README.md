@@ -1,9 +1,9 @@
 [Store Buttons & Labels]
-[] Allow toggling visibility of Store Buttons (e.g., cancellation, restore, redeem code, policies)
-[] Allow toggling of Store Label styles (.automatic, .action, .prominent, .inline)
-[] Include toggle for button placement (e.g., top, bottom)
-[] Support for custom button styling via SwiftUI modifiers
-[] Add support for color tinting using `.tint()` on StoreKit views and buttons
+[ ] Allow toggling visibility of Store Buttons (e.g., cancellation, restore, redeem code, policies)
+[ ] Allow toggling of Store Label styles (.automatic, .action, .prominent, .inline)
+[ ] Include toggle for button placement (e.g., top, bottom)
+[ ] Support for custom button styling via SwiftUI modifiers
+[ ] Add support for color tinting using `.tint()` on StoreKit views and buttons
 
 [Marketing & Features]
 [] Add support for different Marketing Material views (image, video, carousel, text)
@@ -14,7 +14,7 @@
 [Subscription Options & Groups]
 [] View to display Subscription Option Group Set
 [] Toggle between different Subscription Groups (e.g., Streaming Pass vs Streaming Pass Plus)
-[] Support for Link-style subscription options
+[] Support for Link-style subscription optio
 [] Show examples with one option, two options, three options
 [] Display subscription pricing formats (monthly, yearly, family plan, etc.)
 

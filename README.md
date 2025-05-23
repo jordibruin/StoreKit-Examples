@@ -4,10 +4,10 @@ This repo aims to provide sample code for the StoreKit Store and Subscription St
 <img width="1511" alt="image" src="https://github.com/user-attachments/assets/18a4a4d6-0543-45b3-8499-4dda391ef55e">
 
 ## Benefits of using StoreViews
-- [ ] Easy to implement
-- [ ] Localized
-- [ ] Accessible
-- [ ] No dependencies
+- [x] Easy to implement
+- [x] Localized
+- [x] Accessible
+- [x] No dependencies
 
 ## Todo
 - [ ] Add support for all things that can be customised

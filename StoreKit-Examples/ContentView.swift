@@ -16,7 +16,6 @@ struct ContentView: View {
     var body: some View {
         Group {
             if UIDevice.current.userInterfaceIdiom == .pad {
-                
                 NavigationSplitView(sidebar: {
                     EditorView()
                 }, detail: {

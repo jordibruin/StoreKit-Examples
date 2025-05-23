@@ -25,6 +25,8 @@ class StoreKitManager {
     
     var subscriptionStoreViewOption: SubscriptionStoreViewOption = .grouped
     
+    var marketingViewMode: MarketingViewMode = .basic
+    
 }
 
 enum SubscriptionStoreViewOption: String, Identifiable, CaseIterable, View {

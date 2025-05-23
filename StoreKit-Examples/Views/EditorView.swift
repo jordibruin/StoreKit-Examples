@@ -20,7 +20,9 @@ struct EditorView: View {
             buttonsSection
             subscriptionStoreButtonLabelSection
             colorSection
+            
         }
+        .formStyle(.grouped)
         .toolbar {
             Button {
                 dismiss()
@@ -40,6 +42,10 @@ struct EditorView: View {
                 }
             } label: {
                 Text("Store Type")
+            }
+            
+            if storeKitManager.subscriptionStoreViewOption == .basic {
+                marketingViewSection
             }
         } header: {
             Text("Store Type")
@@ -106,6 +112,18 @@ struct EditorView: View {
         }
     }
     
+    @ViewBuilder
+    var marketingViewSection: some View {
+        @Bindable var storeKitManager = storeKitManager
+        Picker(selection: $storeKitManager.marketingViewMode) {
+            ForEach(MarketingViewMode.allCases) { mode in
+                Text(mode.name).tag(mode)
+            }
+        } label: {
+            Text("Marketing View Mode")
+        }
+    }
+    
     func nameFor(label: SubscriptionStoreButtonLabel) -> String {
         switch label {
         case .action:
@@ -122,6 +140,46 @@ struct EditorView: View {
             "Multiline"
         default:
             "Unknown"
+        }
+    }
+}
+
+enum MarketingViewMode: String, CaseIterable, Identifiable {
+    case basic
+    case blinkist
+    
+    var id: String { self.rawValue }
+    
+    var name: String {
+        switch self {
+        case .basic:
+            "Basic"
+        case .blinkist:
+            "Blinkist"
+        }
+    }
+    
+    var explanation: String {
+        switch self {
+        case .basic:
+            "The default marketing view"
+        case .blinkist:
+            "Blinkist Example which shows the timeline for the trial"
+        }
+    }
+    
+    @ViewBuilder
+    var view: some View {
+        switch self {
+        case .basic:
+            Text("A very basic marketing view")
+        case .blinkist:
+            VStack {
+                Text("Here is what will happen")
+                Text("day 1")
+                Text("day 5")
+                Text("day 7")
+            }
         }
     }
 }

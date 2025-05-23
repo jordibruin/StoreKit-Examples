@@ -14,7 +14,9 @@ struct BasicSubscriptionStoreView: View {
     
     var body: some View {
         @Bindable var storeKitManager = storeKitManager
-        return SubscriptionStoreView(groupID: Constants.groupID)
+        return SubscriptionStoreView(groupID: Constants.groupID, marketingContent: {
+            storeKitManager.marketingViewMode.view
+        })
             .subscriptionStoreControlStyle(.compactPicker, placement: .buttonsInBottomBar)
             .tint(storeKitManager.tintColor)
             .foregroundStyle(storeKitManager.foregroundColor)

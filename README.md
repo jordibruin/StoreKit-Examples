@@ -10,11 +10,16 @@ This repo aims to provide sample code for the StoreKit Store and Subscription St
 - [x] Accessible
 - [x] No dependencies
 
-![modes](https://github.com/user-attachments/assets/6778c6b7-e801-4428-a6e3-ae0bb84fea93)
+## Demo Videos
 
-![controlstyles](https://github.com/user-attachments/assets/2310632b-cdf1-4fea-a99a-04744a57bd2b)
+### StoreViews
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/6778c6b7-e801-4428-a6e3-ae0bb84fea93" />
 
-![colors](https://github.com/user-attachments/assets/0b3d2a8e-fb10-4965-9d36-70d51af7b94d)
+### Control Styles
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/2310632b-cdf1-4fea-a99a-04744a57bd2b" />
+
+### Colors
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/0b3d2a8e-fb10-4965-9d36-70d51af7b94d" />
 
 ## Todo
 - [ ] Add support for all things that can be customised

@@ -13,6 +13,7 @@ enum SubscriptionStoreViewOption: String, Identifiable, CaseIterable, View {
     case period
     case controlStyle
     case products
+    case trials
     
     var id: String { self.rawValue }
     
@@ -28,6 +29,8 @@ enum SubscriptionStoreViewOption: String, Identifiable, CaseIterable, View {
             ControlStyleView()
         case .products:
             ProductsView()
+        case .trials:
+            TrialStoreView()
         }
     }
     
@@ -43,6 +46,8 @@ enum SubscriptionStoreViewOption: String, Identifiable, CaseIterable, View {
             "Control Style"
         case .products:
             "Products"
+        case .trials:
+            "Trials"
         }
     }
 }

@@ -8,4 +8,5 @@
 struct Constants {
     static let groupID = "80040CF5"
     static let simpleGroupID = "7C334564"
+    static let trialGroup = "302C06AC"
 }

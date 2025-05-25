@@ -24,7 +24,8 @@ struct EditorView: View {
             
             buttonsNavigationLink
             subscriptionStoreButtonLabelSection
-            colorSection
+            
+            colorsNavigationLink
         }
         .formStyle(.grouped)
         .toolbar {
@@ -37,16 +38,6 @@ struct EditorView: View {
         }
         .navigationTitle("Editor")
     }
-    
-//    var subscriptionOptionGroupStyleSection: some View {
-//        @Bindable var storeKitManager = storeKitManager
-//        Picker(selection: $storeKitManager.subscriptionOptionGroupStyle) {
-//            Text("Test")
-//        } label: {
-//            Text("Subscription Option Group Style")
-//        }
-//
-//    }
     
     var storeTypeSection: some View {
         @Bindable var storeKitManager = storeKitManager
@@ -83,49 +74,30 @@ struct EditorView: View {
     
     var buttonsNavigationLink: some View {
         NavigationLink {
-            buttonsSection
+            StoreButtonEditorView()
         } label: {
             Text("Store Buttons")
         }
-
-    }
-    var buttonsSection: some View {
-        @Bindable var storeKitManager = storeKitManager
-        return Form {
-            Section {
-                Toggle(isOn: $storeKitManager.showCancellation) {
-                    Text("Cancellation")
-                }
-                
-                Toggle(isOn: $storeKitManager.showPolicies) {
-                    Text("Policies")
-                }
-                
-                Toggle(isOn: $storeKitManager.showRedeemCode) {
-                    Text("Redeem Code")
-                }
-                
-                Toggle(isOn: $storeKitManager.showRestorePurchases) {
-                    Text("Restore Purchases")
-                }
-                
-                Toggle(isOn: $storeKitManager.showSignInButton) {
-                    Text("Sign In")
-                }
-            } header: {
-                Text("Store Buttons")
-            }
-            .navigationTitle("Store Buttons")
-        }
     }
     
-    var colorSection: some View {
-        @Bindable var storeKitManager = storeKitManager
-        return Section {
-            ColorPicker("Tint Color", selection: $storeKitManager.tintColor, supportsOpacity: true)
-            ColorPicker("Foreground Color", selection: $storeKitManager.foregroundColor, supportsOpacity: false)
-        } header: {
-            Text("Subscription Store Button Labels")
+    var colorsNavigationLink: some View {
+        NavigationLink {
+            ColorEditorView()
+        } label: {
+            HStack {
+                Text("Colors")
+                Spacer()
+                
+                HStack(spacing: -6) {
+                    Circle()
+                        .foregroundStyle(storeKitManager.tintColor)
+                        .frame(width: 26, height: 26)
+                    
+                    Circle()
+                        .foregroundStyle(storeKitManager.foregroundColor)
+                        .frame(width: 26, height: 26)
+                }
+            }
         }
     }
     
@@ -182,48 +154,11 @@ struct EditorView: View {
             "Unknown"
         }
     }
-    
-    
-
-
 }
 
-enum MarketingViewMode: String, CaseIterable, Identifiable {
-    case basic
-    case blinkist
-    
-    var id: String { self.rawValue }
-    
-    var name: String {
-        switch self {
-        case .basic:
-            "Basic"
-        case .blinkist:
-            "Blinkist"
-        }
+#Preview(body: {
+    NavigationView {
+        EditorView()
     }
-    
-    var explanation: String {
-        switch self {
-        case .basic:
-            "The default marketing view"
-        case .blinkist:
-            "Blinkist Example which shows the timeline for the trial"
-        }
-    }
-    
-    @ViewBuilder
-    var view: some View {
-        switch self {
-        case .basic:
-            Text("A very basic marketing view")
-        case .blinkist:
-            VStack {
-                Text("Here is what will happen")
-                Text("day 1")
-                Text("day 5")
-                Text("day 7")
-            }
-        }
-    }
-}
+    .environment(StoreKitManager())
+})

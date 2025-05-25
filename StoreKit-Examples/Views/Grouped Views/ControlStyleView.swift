@@ -85,6 +85,11 @@ struct BadgedPickerControlStyle: SubscriptionStoreControlStyle {
                       
           if option.isFamilyShareable {
 //            FamilyShareableBadge()
+              Text("Family Shareable")
+                  .foregroundStyle(.green)
+          } else {
+              Text("Not Family Shareable")
+                  .foregroundStyle(.red)
           }
           Text(option.description)
         }

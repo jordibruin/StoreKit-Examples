@@ -153,8 +153,8 @@
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "",
-              "displayName" : "",
+              "description" : "Unlock all features",
+              "displayName" : "Monthly",
               "locale" : "en_US"
             }
           ],
@@ -181,8 +181,8 @@
           "introductoryOffer" : null,
           "localizations" : [
             {
-              "description" : "",
-              "displayName" : "",
+              "description" : "Unlock all features",
+              "displayName" : "Yearly",
               "locale" : "en_US"
             }
           ],

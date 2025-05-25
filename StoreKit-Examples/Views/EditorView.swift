@@ -53,7 +53,7 @@ struct EditorView: View {
         return Section {
             Picker(selection: $storeKitManager.subscriptionStoreViewOption) {
                 ForEach(SubscriptionStoreViewOption.allCases) { option in
-                    Text(option.rawValue).tag(option)
+                    Text(option.title).tag(option)
                 }
             } label: {
                 Text("Product Group")
@@ -115,6 +115,7 @@ struct EditorView: View {
             } header: {
                 Text("Store Buttons")
             }
+            .navigationTitle("Store Buttons")
         }
     }
     

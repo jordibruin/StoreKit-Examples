@@ -159,6 +159,7 @@
             }
           ],
           "productID" : "simple.monthly",
+          "promotionalImageID" : "9F541BE7",
           "recurringSubscriptionPeriod" : "P1M",
           "referenceName" : "Monthly",
           "subscriptionGroupID" : "7C334564",

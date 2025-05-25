@@ -49,10 +49,9 @@ struct EditorView: View {
             } label: {
                 Text("Product Group")
             }
+            .pickerStyle(.navigationLink)
             
-            if storeKitManager.subscriptionStoreViewOption == .basic {
-                marketingViewSection
-            }
+            marketingViewSection
         } header: {
             Text("Product Grouping")
         }
@@ -134,6 +133,7 @@ struct EditorView: View {
         } label: {
             Text("Marketing View Mode")
         }
+        .pickerStyle(.navigationLink)
     }
     
     func nameFor(label: SubscriptionStoreButtonLabel) -> String {

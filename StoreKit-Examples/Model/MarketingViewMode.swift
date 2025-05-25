@@ -35,7 +35,13 @@ enum MarketingViewMode: String, CaseIterable, Identifiable {
     var view: some View {
         switch self {
         case .basic:
-            Text("A very basic marketing view")
+            ZStack {
+                LinearGradient(colors: [Color.blue, Color.black.opacity(0.8)], startPoint: .top, endPoint: .bottom)
+                Text("A very basic marketing view")
+                    .foregroundStyle(.white)
+                    .font(.largeTitle)
+                    .bold()
+            }
         case .blinkist:
             VStack {
                 Text("Here is what will happen")

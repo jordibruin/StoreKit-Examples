@@ -49,7 +49,6 @@ struct GridView: View {
                     } label: {
                         Text("Editor")
                     }
-
                 }
             })
             .inspector(isPresented: $showInspector) {

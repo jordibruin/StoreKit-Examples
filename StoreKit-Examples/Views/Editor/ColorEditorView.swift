@@ -13,7 +13,7 @@ struct ColorEditorView: View {
     
     var body: some View {
         @Bindable var storeKitManager = storeKitManager
-        return Group {
+        return Form {
             Section {
                 ColorPicker("Tint Color", selection: $storeKitManager.tintColor, supportsOpacity: true)
             } footer: {
@@ -26,11 +26,12 @@ struct ColorEditorView: View {
                 Text("The foreground color is for button titles")
             }
         }
+        .formStyle(.grouped)
     }
 }
 
 #Preview(body: {
-    Form {
+    NavigationView {
         ColorEditorView()
     }
     .environment(StoreKitManager())

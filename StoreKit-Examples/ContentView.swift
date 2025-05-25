@@ -21,17 +21,18 @@ struct ContentView: View {
                         EditorView()
                     }
             } else {
-                ZStack(alignment: .topLeading) {
+                ZStack(alignment: .topTrailing) {
                     storeKitManager.subscriptionStoreViewOption
                     
                     Button {
                         showEditor.toggle()
                     } label: {
-                        Image(systemName: "ellipsis.circle.fill")
-                            .foregroundStyle(.white)
-                            .font(.title)
-                            .background(.thinMaterial)
+                        Text("Edit")
                     }
+                    .buttonStyle(.borderedProminent)
+                    .tint(.black)
+                    .padding(.top, -60)
+                    .padding(.trailing)
                     .padding()
                 }
             }

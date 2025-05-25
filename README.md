@@ -21,11 +21,10 @@ Long unordered list of todos:
 
 [Store Buttons & Labels]
 
-- [ ] Allow toggling visibility of Store Buttons (e.g., cancellation, restore, redeem code, policies)
+- [x] Allow toggling visibility of Store Buttons (e.g., cancellation, restore, redeem code, policies)
+- [x] Support for custom button styling via SwiftUI modifiers
+- [x] Add support for color tinting using `.tint()` on StoreKit views and buttons
 - [ ] Allow toggling of Store Label styles (.automatic, .action, .prominent, .inline)
-- [ ] Include toggle for button placement (e.g., top, bottom)
-- [ ] Support for custom button styling via SwiftUI modifiers
-- [ ] Add support for color tinting using `.tint()` on StoreKit views and buttons
 
 [Marketing & Features]
 - [ ] Add support for different Marketing Material views (image, video, carousel, text)
@@ -34,11 +33,12 @@ Long unordered list of todos:
 - [ ] Include option to show or hide marketing header
 
 [Subscription Options & Groups]
-- [ ] View to display Subscription Option Group Set
-- [ ] Toggle between different Subscription Groups (e.g., Streaming Pass vs Streaming Pass Plus)
+- [x] View to display Subscription Option Group Set
+- [x] Toggle between different Subscription Groups (e.g., Streaming Pass vs Streaming Pass Plus)
 - [ ] Support for Link-style subscription optio
 - [ ] Show examples with one option, two options, three options
 - [ ] Display subscription pricing formats (monthly, yearly, family plan, etc.)
+- [ ] Add modifiers to detect start and success of purchases
 
 [Offers & Promotions]
 - [ ] Include examples with Free Trials
@@ -53,18 +53,14 @@ Long unordered list of todos:
 - [ ] Include environment overrides for locale and storefront
 
 [Multi-View Support]
-- [ ] Allow switching between multiple StoreKit Views using sidebar toggles
-- [ ] Allow switching between multiple StoreKit Groups using sidebar toggles
+- [x] Allow switching between multiple StoreKit Views using sidebar toggles
+- [x] Group previews with identifiers for easy comparison
 - [ ] Support previewing different StoreView variants (.compact, .expanded)
-- [ ] Group previews with identifiers for easy comparison
 
 [Debugging & Utilities]
-- [ ] Show output of current StoreKit configuration in JSON
 - [ ] Log StoreKit events (e.g., button taps, subscription started, error)
-- [ ] Include a toggle for simulated purchase flow vs real
 - [ ] Add diagnostics panel to inspect subscription status, product info, transaction history
 
 [Preview & Testing]
-- [ ] Add SwiftUI previews for all combinations of views
 - [ ] Allow preview with test products via StoreKit Configuration File
 - [ ] Support dynamic product loading via `Product.subscription`

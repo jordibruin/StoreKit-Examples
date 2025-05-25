@@ -46,7 +46,7 @@ enum ControlStyle: String, CaseIterable, Identifiable, View  {
                 .subscriptionStoreControlStyle(.buttons)
         case .pagedPicker:
             SubscriptionStoreView(groupID: Constants.simpleGroupID)
-            .subscriptionStoreControlStyle(.pagedPicker, placement: .buttonsInBottomBar)
+                .subscriptionStoreControlStyle(.pagedPicker, placement: .buttonsInBottomBar)
         case .pagedProminentPicker:
             SubscriptionStoreView(groupID: Constants.simpleGroupID)
                 .subscriptionStoreControlStyle(.pagedProminentPicker, placement: .buttonsInBottomBar)
@@ -76,28 +76,39 @@ import StoreKit
 import SwiftUI
 
 struct BadgedPickerControlStyle: SubscriptionStoreControlStyle {
-  func makeBody(configuration: Configuration) -> some View {
-    SubscriptionPicker(configuration) { option in
-      HStack(alignment: .top) {
-        VStack(alignment: .leading) {
-            Text(option.displayName)
-                .font(.title2)
-                      
-          if option.isFamilyShareable {
-//            FamilyShareableBadge()
-              Text("Family Shareable")
-                  .foregroundStyle(.green)
-          } else {
-              Text("Not Family Shareable")
-                  .foregroundStyle(.red)
-          }
-          Text(option.description)
+    func makeBody(configuration: Configuration) -> some View {
+        SubscriptionPicker(configuration) { option in
+            HStack(alignment: .top) {
+                VStack(alignment: .leading) {
+                    Text(option.displayName)
+                        .font(.title2)
+                    
+                    if option.isFamilyShareable {
+                        //            FamilyShareableBadge()
+                        Text("Family Shareable")
+                            .foregroundStyle(.green)
+                    } else {
+                        Text("Not Family Shareable")
+                            .foregroundStyle(.red)
+                    }
+                    Text(option.description)
+                }
+                Spacer()
+                //        SelectionIndicator(pickerOption.isSelected)
+            }
+        } confirmation: { option in
+            //            CustomConfirmationButton()
+            SubscribeButton(option)
         }
-        Spacer()
-//        SelectionIndicator(pickerOption.isSelected)
-      }
-    } confirmation: { option in
-      SubscribeButton(option)
     }
-  }
+}
+
+struct CustomConfirmationButton: View {
+    
+    // TODO: Implement
+//    let option: StoreKit.Configuration.PickerOption
+    
+    var body: some View {
+        Text("Subscribe")
+    }
 }

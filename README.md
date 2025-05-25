@@ -1,15 +1,6 @@
 # StoreKit Store View Examples
 This repo aims to provide sample code for the StoreKit Store and Subscription Store views. You can use them as inspiration for your own paywalls. The goal is to make each option in the StoreView customisable so you can see the effects they have. The repo also aims to recreate common marketing content based on 'proven to be effective' paywalls. 
 
-<img width="2025" alt="image" src="https://github.com/user-attachments/assets/f7685e07-12c2-4cd6-ba78-7235967b9e0f" />
-
-
-## Benefits of using StoreViews
-- [x] Easy to implement
-- [x] Localized
-- [x] Accessible
-- [x] No dependencies
-
 ## Demo Videos
 
 ### StoreViews
@@ -20,6 +11,14 @@ This repo aims to provide sample code for the StoreKit Store and Subscription St
 
 ### Colors
 <img width="800" alt="image" src="https://github.com/user-attachments/assets/0b3d2a8e-fb10-4965-9d36-70d51af7b94d" />
+
+## Benefits of using StoreViews
+- [x] Easy to implement
+- [x] Localized
+- [x] Accessible
+- [x] No dependencies
+
+<img width="800" alt="image" src="https://github.com/user-attachments/assets/f7685e07-12c2-4cd6-ba78-7235967b9e0f" />
 
 ## Todo
 - [ ] Add support for all things that can be customised

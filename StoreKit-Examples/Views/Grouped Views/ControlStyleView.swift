@@ -16,6 +16,7 @@ enum ControlStyle: String, CaseIterable, Identifiable, View  {
     case pagedProminentPicker
     case picker
     case prominentPicker
+    case custom
     
     var id: String { self.rawValue }
     
@@ -28,6 +29,7 @@ enum ControlStyle: String, CaseIterable, Identifiable, View  {
         case .pagedProminentPicker: "Paged Prominent Picker"
         case .picker: "Picker"
         case .prominentPicker: "ProminentPicker"
+        case .custom: "Custom"
         }
     }
     
@@ -54,6 +56,9 @@ enum ControlStyle: String, CaseIterable, Identifiable, View  {
         case .prominentPicker:
             SubscriptionStoreView(groupID: Constants.simpleGroupID)
                 .subscriptionStoreControlStyle(.prominentPicker, placement: .buttonsInBottomBar)
+        case .custom:
+            SubscriptionStoreView(groupID: Constants.simpleGroupID)
+                .subscriptionStoreControlStyle(BadgedPickerControlStyle())
         }
     }
 }
@@ -66,3 +71,28 @@ struct ControlStyleView: View {
     }
 }
 
+
+import StoreKit
+import SwiftUI
+
+struct BadgedPickerControlStyle: SubscriptionStoreControlStyle {
+  func makeBody(configuration: Configuration) -> some View {
+    SubscriptionPicker(configuration) { option in
+      HStack(alignment: .top) {
+        VStack(alignment: .leading) {
+            Text(option.displayName)
+                .font(.title2)
+                      
+          if option.isFamilyShareable {
+//            FamilyShareableBadge()
+          }
+          Text(option.description)
+        }
+        Spacer()
+//        SelectionIndicator(pickerOption.isSelected)
+      }
+    } confirmation: { option in
+      SubscribeButton(option)
+    }
+  }
+}

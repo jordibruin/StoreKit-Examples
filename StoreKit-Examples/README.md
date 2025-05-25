@@ -4,6 +4,7 @@
 [] Include toggle for button placement (e.g., top, bottom)
 [] Support for custom button styling via SwiftUI modifiers
 [] Add support for color tinting using `.tint()` on StoreKit views and buttons
+[] Add custom control style
 
 [Marketing & Features]
 [] Add support for different Marketing Material views (image, video, carousel, text)

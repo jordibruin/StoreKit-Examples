@@ -17,10 +17,14 @@ struct EditorView: View {
         @Bindable var storeKitManager = storeKitManager
         Form {
             storeTypeSection
-            buttonsSection
+            
+            if storeKitManager.subscriptionStoreViewOption == .controlStyle {
+                controlStylePicker
+            }
+            
+            buttonsNavigationLink
             subscriptionStoreButtonLabelSection
             colorSection
-            
         }
         .formStyle(.grouped)
         .toolbar {
@@ -29,9 +33,20 @@ struct EditorView: View {
             } label: {
                 Text("Close")
             }
+            .opacity(UIDevice.current.userInterfaceIdiom == .pad ? 0 : 1)
         }
         .navigationTitle("Editor")
     }
+    
+//    var subscriptionOptionGroupStyleSection: some View {
+//        @Bindable var storeKitManager = storeKitManager
+//        Picker(selection: $storeKitManager.subscriptionOptionGroupStyle) {
+//            Text("Test")
+//        } label: {
+//            Text("Subscription Option Group Style")
+//        }
+//
+//    }
     
     var storeTypeSection: some View {
         @Bindable var storeKitManager = storeKitManager
@@ -41,41 +56,65 @@ struct EditorView: View {
                     Text(option.rawValue).tag(option)
                 }
             } label: {
-                Text("Store Type")
+                Text("Product Group")
             }
             
             if storeKitManager.subscriptionStoreViewOption == .basic {
                 marketingViewSection
             }
         } header: {
-            Text("Store Type")
+            Text("Product Grouping")
         }
     }
     
+    @ViewBuilder
+    var controlStylePicker: some View {
+        @Bindable var storeKitManager = storeKitManager
+        Section {
+            Picker(selection: $storeKitManager.controlStyle) {
+                ForEach(ControlStyle.allCases) { style in
+                    Text(style.title).tag(style)
+                }
+            } label: {
+                Text("Control Style")
+            }
+        }
+    }
+    
+    var buttonsNavigationLink: some View {
+        NavigationLink {
+            buttonsSection
+        } label: {
+            Text("Store Buttons")
+        }
+
+    }
     var buttonsSection: some View {
         @Bindable var storeKitManager = storeKitManager
-        return Section {
-            Toggle(isOn: $storeKitManager.showCancellation) {
-                Text("Cancellation")
+        return Form {
+            Section {
+                Toggle(isOn: $storeKitManager.showCancellation) {
+                    Text("Cancellation")
+                }
+                
+                Toggle(isOn: $storeKitManager.showPolicies) {
+                    Text("Policies")
+                }
+                
+                Toggle(isOn: $storeKitManager.showRedeemCode) {
+                    Text("Redeem Code")
+                }
+                
+                Toggle(isOn: $storeKitManager.showRestorePurchases) {
+                    Text("Restore Purchases")
+                }
+                
+                Toggle(isOn: $storeKitManager.showSignInButton) {
+                    Text("Sign In")
+                }
+            } header: {
+                Text("Store Buttons")
             }
-            
-            Toggle(isOn: $storeKitManager.showPolicies) {
-                Text("Policies")
-            }
-            
-            Toggle(isOn: $storeKitManager.showRedeemCode) {
-                Text("Redeem Code")
-            }
-            
-            Toggle(isOn: $storeKitManager.showRestorePurchases) {
-                Text("Restore Purchases")
-            }
-            
-            Toggle(isOn: $storeKitManager.showSignInButton) {
-                Text("Sign In")
-            }
-        } header: {
-            Text("Store Buttons")
         }
     }
     
@@ -142,6 +181,10 @@ struct EditorView: View {
             "Unknown"
         }
     }
+    
+    
+
+
 }
 
 enum MarketingViewMode: String, CaseIterable, Identifiable {

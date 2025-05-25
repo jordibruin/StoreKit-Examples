@@ -16,12 +16,10 @@ struct ContentView: View {
     var body: some View {
         Group {
             if UIDevice.current.userInterfaceIdiom == .pad {
-                NavigationSplitView(sidebar: {
-                    EditorView()
-                }, detail: {
-                    storeKitManager.subscriptionStoreViewOption
-                })
-                .navigationSplitViewStyle(.balanced)
+                storeKitManager.subscriptionStoreViewOption
+                    .inspector(isPresented: .constant(true)) {
+                        EditorView()
+                    }
             } else {
                 ZStack(alignment: .topLeading) {
                     storeKitManager.subscriptionStoreViewOption

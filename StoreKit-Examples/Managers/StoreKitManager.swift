@@ -26,12 +26,16 @@ class StoreKitManager {
     var subscriptionStoreViewOption: SubscriptionStoreViewOption = .grouped
     
     var marketingViewMode: MarketingViewMode = .basic
+        
+    var controlStyle: ControlStyle = .automatic
     
 }
 
 enum SubscriptionStoreViewOption: String, Identifiable, CaseIterable, View {
     case basic
     case grouped
+    case period
+    case controlStyle
     
     var id: String { self.rawValue }
     
@@ -41,6 +45,23 @@ enum SubscriptionStoreViewOption: String, Identifiable, CaseIterable, View {
             BasicSubscriptionStoreView()
         case .grouped:
             GroupedSubscriptionStoreView()
+        case .period:
+            PeriodGroupStoreView()
+        case .controlStyle:
+            ControlStyleView()
+        }
+    }
+    
+    var title: String {
+        switch self {
+        case .basic:
+            "None"
+        case .grouped:
+            "Grouped"
+        case .period:
+            "Period"
+        case .controlStyle:
+            "Control Style"
         }
     }
 }
